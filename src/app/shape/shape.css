@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+/* controller */
+
+.controller-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.move-shape {
+  position: relative;
+}
+
+.move-position {
+  display: flex;
+  position: relative;
+
+  .card-up {
+    border: none;
+    border-radius: none;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .card-down {
+    border: none;
+    border-radius: none;
+    border-radius: 0 8px 8px 0;
+  }
+}
+
+.ant-card-hoverable:hover {
+  background-color: orange;
+}
+
+.prev {
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+.forward {
+  clip-path: polygon(100% 50%, 0 0, 0 100%);
+}
+
+.up {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.down {
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+}
+
+.prev,
+.forward,
+.up,
+.down {
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+}
+
+.tag {
+  position: absolute;
+  bottom: -10px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: rgb(83, 170, 83);
+  padding: 4px 8px;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+/* shape */

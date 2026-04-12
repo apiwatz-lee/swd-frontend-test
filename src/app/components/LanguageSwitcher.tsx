@@ -11,8 +11,8 @@ const langSelectStyle: React.CSSProperties = {
 
 const LanguageSwitcher = () => {
   const langOptions = [
-    { value: 'th', label: 'TH' },
     { value: 'en', label: 'EN' },
+    { value: 'th', label: 'TH' },
   ];
 
   const handleChange = (lng: string) => {

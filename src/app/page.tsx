@@ -10,10 +10,10 @@ const Home: React.FC = () => {
 
   const pages = [
     {
-      key: 'layout',
+      key: 'shape',
       title: t('homepage.test1'),
       subtitle: t('homepage.layout'),
-      path: '/layout',
+      path: '/shape',
     },
     {
       key: 'form',
