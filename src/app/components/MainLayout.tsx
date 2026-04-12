@@ -2,12 +2,9 @@
 
 import { Layout } from 'antd';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';
-
-const langOptions = [
-  { value: 'th', label: 'TH' },
-  { value: 'en', label: 'EN' },
-];
+import i18n from '../i18n';
 
 const { Content } = Layout;
 
@@ -28,14 +25,20 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const langOptions = [
+    { value: 'th', label: 'TH' },
+    { value: 'en', label: 'EN' },
+  ];
+
+  const handleChange = (lng: string) => {
+    i18n.changeLanguage(lng);
   };
+
   return (
     <AntdRegistry>
       <Layout style={layoutStyle}>
         <Select
-          defaultValue='th'
+          defaultValue={i18n.language}
           style={langSelectStyle}
           onChange={handleChange}
           options={langOptions}

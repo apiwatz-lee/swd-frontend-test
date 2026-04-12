@@ -2,15 +2,27 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, Flex, Typography } from 'antd';
-
-const { Title, Text } = Typography;
-
-const pages = [
-  { key: '1', title: 'Test 1', subtitle: 'Layout & Style', path: '/layout' },
-  { key: '2', title: 'Test 2', subtitle: 'Form & Table', path: '/form' },
-];
+import { useTranslation } from 'react-i18next';
 
 const Home: React.FC = () => {
+  const { Title, Text } = Typography;
+  const { t } = useTranslation();
+
+  const pages = [
+    {
+      key: 'layout',
+      title: t('homepage.test1'),
+      subtitle: t('homepage.layout'),
+      path: '/layout',
+    },
+    {
+      key: 'form',
+      title: t('homepage.test2'),
+      subtitle: t('homepage.form'),
+      path: '/form',
+    },
+  ];
+
   return (
     <Flex
       vertical
@@ -23,11 +35,7 @@ const Home: React.FC = () => {
     >
       <Flex gap='large' wrap='wrap' justify='center'>
         {pages.map((item) => (
-          <Link
-            key={item?.key}
-            href={item?.path}
-            style={{ textDecoration: 'none' }}
-          >
+          <Link key={item?.key} href={item?.path}>
             <Card
               hoverable
               style={{
