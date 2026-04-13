@@ -3,18 +3,29 @@ import './shape.css';
 import { Card } from 'antd';
 import { Divider } from 'antd';
 
+const itemsShape: string[] = [
+  'trapezoid',
+  'parallelogram',
+  'rectangle',
+  'ellipse',
+  'square',
+  'circle',
+];
+
 const Layout: React.FC = () => {
   const style = {
     card: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 110,
+      width: 400,
+      height: 230,
       padding: 90,
       cursor: 'pointer',
       border: 'none',
     },
   };
+
   return (
     <div className='container'>
       <h1>Layout & Style</h1>
@@ -49,7 +60,13 @@ const Layout: React.FC = () => {
       <Divider />
 
       {/* shape */}
-      <div className='shape-container'>shape</div>
+      <div className='shape-container'>
+        {itemsShape.map((item) => (
+          <Card hoverable style={style.card} key={item}>
+            <div className={item}></div>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };

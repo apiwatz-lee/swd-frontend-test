@@ -4,7 +4,7 @@
   padding: 24px;
 }
 
-/* controller */
+/* controller section*/
 
 .controller-container {
   display: flex;
@@ -75,4 +75,52 @@
   cursor: pointer;
 }
 
-/* shape */
+/* shape section*/
+
+.shape-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.circle,
+.ellipse,
+.trapezoid,
+.rectangle,
+.parallelogram {
+  width: 300px;
+  height: 200px;
+  background-color: gray;
+}
+
+.square {
+  width: 200px;
+  height: 200px;
+  background-color: gray;
+}
+
+.trapezoid {
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.parallelogram {
+  clip-path: polygon(0 0, 68% 0, 100% 100%, 36% 100%);
+}
+
+.rectangle {
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.ellipse {
+  clip-path: ellipse(50% 30% at 50% 50%);
+}
+
+.square {
+  clip-path: inset(0);
+}
+
+.circle {
+  clip-path: circle(35% at 50% 50%);
+}
