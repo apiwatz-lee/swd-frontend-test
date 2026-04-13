@@ -6,8 +6,11 @@
     "form": "Form & Table"
   },
   "layout": {
-    "title": "Layout & Style  ",
+    "title": "Layout & Style",
     "up_down": "Move position",
     "forward_prev": "Move shape"
+  },
+  "form": {
+    "title": "Form & Table"
   }
 }

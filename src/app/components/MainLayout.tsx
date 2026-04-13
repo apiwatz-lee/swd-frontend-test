@@ -3,6 +3,8 @@
 import { Layout } from 'antd';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import LanguageSwitcher from './LanguageSwitcher';
+import { Provider } from 'react-redux';
+import { store } from '../store';
 
 const { Content } = Layout;
 
@@ -17,11 +19,13 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AntdRegistry>
-      <Layout style={layoutStyle}>
-        <LanguageSwitcher />
-        <Content>{children}</Content>
-      </Layout>
-    </AntdRegistry>
+    <Provider store={store}>
+      <AntdRegistry>
+        <Layout style={layoutStyle}>
+          <LanguageSwitcher />
+          <Content>{children}</Content>
+        </Layout>
+      </AntdRegistry>
+    </Provider>
   );
 }
