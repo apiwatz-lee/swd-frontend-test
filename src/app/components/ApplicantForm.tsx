@@ -9,6 +9,7 @@ import {
   Row,
   Col,
   InputNumber,
+  Space,
 } from 'antd';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
@@ -36,12 +37,15 @@ const ApplicantForm: React.FC = () => {
       initialValues={formData}
       style={{
         padding: '20px',
-        background: 'rgba(255,255,255,0.1)',
         borderRadius: '8px',
+        border: '1px solid black',
+        width: '100%',
+        maxWidth: '1024px',
       }}
     >
       <Row gutter={16}>
-        <Col span={4}>
+        {/* Title */}
+        <Col span={5}>
           <Form.Item name='title' label='Title' rules={[{ required: true }]}>
             <Select
               options={[
@@ -51,7 +55,8 @@ const ApplicantForm: React.FC = () => {
             />
           </Form.Item>
         </Col>
-        <Col span={10}>
+        {/* Firstname */}
+        <Col span={8}>
           <Form.Item
             name='firstname'
             label='Firstname'
@@ -60,7 +65,8 @@ const ApplicantForm: React.FC = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={10}>
+        {/* Lastname */}
+        <Col span={8}>
           <Form.Item
             name='lastname'
             label='Lastname'
@@ -72,6 +78,7 @@ const ApplicantForm: React.FC = () => {
       </Row>
 
       <Row gutter={16}>
+        {/* Birthday */}
         <Col span={8}>
           <Form.Item
             name='birthday'
@@ -81,35 +88,61 @@ const ApplicantForm: React.FC = () => {
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
         </Col>
-        <Col span={16}>
+
+        {/* Nationality */}
+        <Col span={12}>
           <Form.Item
             name='nationality'
             label='Nationality'
             rules={[{ required: true }]}
           >
-            <Select placeholder='Please select' />
+            <Select
+              placeholder='Please select'
+              options={[
+                { value: 'Thai', label: 'Thai' },
+                { value: 'Chinese', label: 'Chinese' },
+                { value: 'American', label: 'American' },
+              ]}
+            />
           </Form.Item>
         </Col>
       </Row>
 
-      <Form.Item label='CitizenID'>
-        <Input.Group compact>
-          <Input style={{ width: '15%' }} maxLength={1} />
-          <Input style={{ width: '25%' }} maxLength={4} />
-          <Input style={{ width: '30%' }} maxLength={5} />
-          <Input style={{ width: '20%' }} maxLength={2} />
-          <Input style={{ width: '10%' }} maxLength={1} />
-        </Input.Group>
+      {/* Citizen ID */}
+      <Form.Item label='CitizenId' required>
+        <Space size='small'>
+          <Form.Item name='citizenId1' noStyle>
+            <Input maxLength={1} style={{ width: 50 }} />
+          </Form.Item>
+          <span>-</span>
+          <Form.Item name='citizenId2' noStyle>
+            <Input maxLength={4} style={{ width: 120 }} />
+          </Form.Item>
+          <span>-</span>
+          <Form.Item name='citizenId3' noStyle>
+            <Input maxLength={5} style={{ width: 120 }} />
+          </Form.Item>
+          <span>-</span>
+          <Form.Item name='citizenId4' noStyle>
+            <Input maxLength={2} style={{ width: 80 }} />
+          </Form.Item>
+          <span>-</span>
+          <Form.Item name='citizenId5' noStyle>
+            <Input maxLength={1} style={{ width: 70 }} />
+          </Form.Item>
+        </Space>
       </Form.Item>
 
+      {/* gender */}
       <Form.Item name='gender' label='Gender' rules={[{ required: true }]}>
         <Radio.Group>
-          <Radio value='Male'>Male</Radio>
-          <Radio value='Female'>Female</Radio>
-          <Radio value='Unsex'>Unsex</Radio>
+          <Radio value='male'>Male</Radio>
+          <Radio value='female'>Female</Radio>
+          <Radio value='unsex'>Unsex</Radio>
         </Radio.Group>
       </Form.Item>
 
+      {/* Mobile Phone */}
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item
@@ -122,8 +155,18 @@ const ApplicantForm: React.FC = () => {
         </Col>
       </Row>
 
+      {/* Passport Number */}
       <Form.Item
-        name='expectedSalary'
+        name='passportNo'
+        label='Passport No'
+        rules={[{ required: true }]}
+      >
+        <InputNumber style={{ width: '400px' }} />
+      </Form.Item>
+
+      {/* Expected Salary */}
+      <Form.Item
+        name='salary'
         label='Expected Salary'
         rules={[{ required: true }]}
       >

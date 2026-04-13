@@ -7,11 +7,11 @@ interface FormState {
   lastname: string;
   birthday: string;
   nationality: string;
-  citizenID: string;
+  citizenId: string;
   gender: string;
   mobilePhone: string;
   passportNo: string;
-  expectedSalary: number;
+  salary: number;
 }
 
 const initialState: FormState = {
@@ -20,11 +20,11 @@ const initialState: FormState = {
   lastname: '',
   birthday: '',
   nationality: '',
-  citizenID: '',
+  citizenId: '',
   gender: 'male',
   mobilePhone: '',
   passportNo: '',
-  expectedSalary: 0,
+  salary: 0,
 };
 
 const formSlice = createSlice({
