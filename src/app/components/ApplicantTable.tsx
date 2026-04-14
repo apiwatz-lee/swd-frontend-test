@@ -118,7 +118,11 @@ const ApplicantTable: React.FC<{ form: FormInstance }> = ({ form }) => {
         >
           Select All
         </Checkbox>
-        <Button onClick={handleDeleteSelected} danger>
+        <Button
+          disabled={selectedRowKeys.length === 0}
+          onClick={handleDeleteSelected}
+          danger
+        >
           Delete
         </Button>
       </div>
@@ -129,6 +133,10 @@ const ApplicantTable: React.FC<{ form: FormInstance }> = ({ form }) => {
         dataSource={formData}
         onChange={onChange}
         style={{ width: '100%' }}
+        pagination={{
+          pageSize: 5,
+          position: ['topRight'],
+        }}
       />
     </Flex>
   );
