@@ -18,6 +18,7 @@ import { addForm, updateForm } from '../store/slices/formSlice';
 import { applicantInitialValues } from '../store/slices/formSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { setDataToLocalStorage } from '../hooks/localStorage';
+import dayjs from 'dayjs';
 
 const { useWatch } = Form;
 
@@ -30,9 +31,10 @@ const ApplicantForm: React.FC<{ form: FormInstance }> = ({ form }) => {
     const formattedValues = {
       ...values,
       key: uuidv4(),
+      birthday: dayjs(values.birthday).format('YYYY-MM-DD'),
     };
     dispatch(addForm(formattedValues));
-    form.resetFields();
+    // form.resetFields();
   };
 
   const onEdit = (values: any) => {
