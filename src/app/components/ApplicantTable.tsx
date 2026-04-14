@@ -6,9 +6,10 @@ import { RootState } from '../store';
 
 interface DataType {
   key: React.Key;
-  name: string;
-  age: number;
-  address: string;
+  firstname: string;
+  gender: string;
+  mobilePhone: string;
+  nationality: string;
 }
 
 const columns: TableColumnsType<DataType> = [
@@ -20,13 +21,13 @@ const columns: TableColumnsType<DataType> = [
   {
     title: 'Gender',
     dataIndex: 'gender',
-    sorter: (a, b) => a.gender - b.gender,
+    sorter: (a, b) => a.gender.localeCompare(b.gender),
     width: '20%',
   },
   {
     title: 'Mobile phone',
     dataIndex: 'mobilePhone',
-    sorter: (a, b) => a.mobilePhone - b.mobilePhone,
+    sorter: (a, b) => a.mobilePhone.localeCompare(b.mobilePhone),
     width: '20%',
   },
   {
@@ -42,33 +43,6 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
-  },
-];
-
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
   filters,
@@ -79,17 +53,12 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 const ApplicantTable: React.FC = () => {
-  const getDataFromLocalStorage = (): DataType[] => {
-    const existingData = JSON.parse(
-      localStorage.getItem('applicantForm') || '[]',
-    ) as DataType[];
-    return existingData;
-  };
+  const formData = useAppSelector((state: RootState) => state.applicantForm);
 
   return (
     <Table<DataType>
       columns={columns}
-      dataSource={getDataFromLocalStorage()}
+      dataSource={formData}
       onChange={onChange}
       style={{ width: '100%', maxWidth: '1800px' }}
     />

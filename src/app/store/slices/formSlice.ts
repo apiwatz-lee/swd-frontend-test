@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDataFromLocalStorage } from '../../hooks/localStorage';
 
 interface FormState {
+  key: string;
   title: string;
   firstname: string;
   lastname: string;
@@ -16,6 +17,7 @@ interface FormState {
 }
 
 export const applicantInitialValues: FormState = {
+  key: '',
   title: '',
   firstname: '',
   lastname: '',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Form,
   Input,
@@ -15,6 +15,8 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
 import { addForm } from '../store/slices/formSlice';
 import { applicantInitialValues } from '../store/slices/formSlice';
+import { v4 as uuidv4 } from 'uuid';
+import { setDataToLocalStorage } from '../hooks/localStorage';
 
 const ApplicantForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -22,13 +24,21 @@ const ApplicantForm: React.FC = () => {
   const formData = useAppSelector((state: RootState) => state.applicantForm);
 
   const onFinish = (values: any) => {
-    dispatch(addForm(values));
-    form.resetFields();
+    const formattedValues = {
+      ...values,
+      key: uuidv4(),
+    };
+    dispatch(addForm(formattedValues));
+    // form.resetFields();
   };
 
   const handleReset = () => {
     form.resetFields();
   };
+
+  useEffect(() => {
+    setDataToLocalStorage('applicantForm', formData);
+  }, [formData]);
 
   return (
     <Form

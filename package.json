@@ -20,7 +20,8 @@
     "react-i18next": "^17.0.2",
     "react-redux": "^9.2.0",
     "redux": "^5.0.1",
-    "redux-toolkit": "^1.1.2"
+    "redux-toolkit": "^1.1.2",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
