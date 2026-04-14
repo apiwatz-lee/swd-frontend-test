@@ -47,7 +47,6 @@ const formSlice = createSlice({
       state,
       action: PayloadAction<{ key: React.Key; data: Partial<FormState> }>,
     ) => {
-      console.log('Updating form with payload:', action.payload);
       const { key, ...rest } = action.payload;
       const index = state.findIndex((form: FormState) => form.key === key);
       const isFound = index !== -1;

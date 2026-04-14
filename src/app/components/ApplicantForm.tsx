@@ -47,7 +47,11 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   };
 
   const onEdit = (values: any) => {
-    dispatch(updateForm(values));
+    const formattedValues = {
+      ...values,
+      birthday: dayjs(values.birthday).format('YYYY-MM-DD'),
+    };
+    dispatch(updateForm(formattedValues));
     setModalState({ ...modalState, isOpen: false });
     form.resetFields();
   };
