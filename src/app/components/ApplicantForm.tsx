@@ -11,17 +11,20 @@ import {
   InputNumber,
   Space,
 } from 'antd';
+import type { FormInstance } from 'antd';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
-import { addForm } from '../store/slices/formSlice';
+import { addForm, updateForm } from '../store/slices/formSlice';
 import { applicantInitialValues } from '../store/slices/formSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { setDataToLocalStorage } from '../hooks/localStorage';
 
-const ApplicantForm: React.FC = () => {
-  const [form] = Form.useForm();
+const { useWatch } = Form;
+
+const ApplicantForm: React.FC<{ form: FormInstance }> = ({ form }) => {
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state: RootState) => state.applicantForm);
+  const key = useWatch('key', form);
 
   const onFinish = (values: any) => {
     const formattedValues = {
@@ -29,7 +32,12 @@ const ApplicantForm: React.FC = () => {
       key: uuidv4(),
     };
     dispatch(addForm(formattedValues));
-    // form.resetFields();
+    form.resetFields();
+  };
+
+  const onEdit = (values: any) => {
+    dispatch(updateForm(values));
+    form.resetFields();
   };
 
   const handleReset = () => {
@@ -54,6 +62,7 @@ const ApplicantForm: React.FC = () => {
         maxWidth: '1024px',
       }}
     >
+      <Form.Item name='key' hidden />
       <Row gutter={16}>
         {/* Title */}
         <Col span={5}>
@@ -212,9 +221,16 @@ const ApplicantForm: React.FC = () => {
         <Button onClick={handleReset} style={{ marginRight: 8 }}>
           RESET
         </Button>
-        <Button type='primary' htmlType='submit'>
-          SUBMIT
-        </Button>
+
+        {key ? (
+          <Button type='primary' onClick={() => onEdit(form.getFieldsValue())}>
+            Edit
+          </Button>
+        ) : (
+          <Button type='primary' htmlType='submit'>
+            Submit
+          </Button>
+        )}
       </div>
     </Form>
   );

@@ -2,8 +2,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDataFromLocalStorage } from '../../hooks/localStorage';
 
-interface FormState {
-  key: string;
+export interface FormState {
+  key: React.Key;
   title: string;
   firstname: string;
   lastname: string;
@@ -42,9 +42,33 @@ const formSlice = createSlice({
     addForm: (state, action: PayloadAction<Partial<FormState>>) => {
       state.push(action.payload as FormState);
     },
+
+    updateForm: (
+      state,
+      action: PayloadAction<{ key: React.Key; data: Partial<FormState> }>,
+    ) => {
+      console.log('Updating form with payload:', action.payload);
+      const { key, ...rest } = action.payload;
+      const index = state.findIndex((form: FormState) => form.key === key);
+      const isFound = index !== -1;
+      if (isFound) {
+        state[index] = { ...state[index], ...rest } as FormState;
+      }
+    },
+    removeForm: (state, action: PayloadAction<React.Key>) => {
+      const key = action.payload;
+      return state.filter((form: FormState) => form.key !== key);
+    },
+    removeMultipleForms: (state, action: PayloadAction<React.Key[]>) => {
+      const keysToRemove = action.payload;
+      return state.filter(
+        (form: FormState) => !keysToRemove.includes(form.key),
+      );
+    },
   },
 });
 
-export const { addForm } = formSlice.actions;
+export const { addForm, updateForm, removeForm, removeMultipleForms } =
+  formSlice.actions;
 
 export default formSlice.reducer;
