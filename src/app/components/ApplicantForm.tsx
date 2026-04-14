@@ -14,6 +14,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
 import { addForm } from '../store/slices/formSlice';
+import { applicantInitialValues } from '../store/slices/formSlice';
 
 const ApplicantForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -32,9 +33,9 @@ const ApplicantForm: React.FC = () => {
   return (
     <Form
       form={form}
+      initialValues={applicantInitialValues}
       layout='horizontal'
       onFinish={onFinish}
-      initialValues={formData}
       style={{
         padding: '20px',
         borderRadius: '8px',

@@ -1,5 +1,6 @@
 'use client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getDataFromLocalStorage } from '../../hooks/localStorage';
 
 interface FormState {
   title: string;
@@ -13,9 +14,8 @@ interface FormState {
   passportNo: string;
   salary: number;
 }
-[];
 
-const initialState: FormState = {
+export const applicantInitialValues: FormState = {
   title: '',
   firstname: '',
   lastname: '',
@@ -28,20 +28,17 @@ const initialState: FormState = {
   salary: 0,
 };
 
-const saveToLocalStorage = (state: FormState): void => {
-  const existingData = JSON.parse(
-    localStorage.getItem('applicantForm') || '[]',
-  ) as FormState[];
-  const updatedData = [...existingData, state];
-  localStorage.setItem('applicantForm', JSON.stringify(updatedData));
-};
+const initialState = getDataFromLocalStorage(
+  'applicantForm',
+  [] as FormState[],
+);
 
 const formSlice = createSlice({
   name: 'applicantForm',
   initialState,
   reducers: {
     addForm: (state, action: PayloadAction<Partial<FormState>>) => {
-      saveToLocalStorage(action.payload as FormState);
+      state.push(action.payload as FormState);
     },
   },
 });

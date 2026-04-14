@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
+import { useAppSelector } from '../store/hooks';
+import { RootState } from '../store';
 
 interface DataType {
   key: React.Key;
@@ -12,7 +14,7 @@ interface DataType {
 const columns: TableColumnsType<DataType> = [
   {
     title: 'Name',
-    dataIndex: 'name',
+    dataIndex: 'firstname',
     width: '20%',
   },
   {
@@ -77,10 +79,17 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 const ApplicantTable: React.FC = () => {
+  const getDataFromLocalStorage = (): DataType[] => {
+    const existingData = JSON.parse(
+      localStorage.getItem('applicantForm') || '[]',
+    ) as DataType[];
+    return existingData;
+  };
+
   return (
     <Table<DataType>
       columns={columns}
-      dataSource={data}
+      dataSource={getDataFromLocalStorage()}
       onChange={onChange}
       style={{ width: '100%', maxWidth: '1800px' }}
     />
