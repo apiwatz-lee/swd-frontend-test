@@ -7,12 +7,13 @@ interface FormState {
   lastname: string;
   birthday: string;
   nationality: string;
-  citizenId: string;
+  citizenId: string[];
   gender: string;
   mobilePhone: string;
   passportNo: string;
   salary: number;
 }
+[];
 
 const initialState: FormState = {
   title: '',
@@ -20,11 +21,19 @@ const initialState: FormState = {
   lastname: '',
   birthday: '',
   nationality: '',
-  citizenId: '',
+  citizenId: ['', '', '', '', ''],
   gender: 'male',
   mobilePhone: '',
   passportNo: '',
   salary: 0,
+};
+
+const saveToLocalStorage = (state: FormState): void => {
+  const existingData = JSON.parse(
+    localStorage.getItem('applicantForm') || '[]',
+  ) as FormState[];
+  const updatedData = [...existingData, state];
+  localStorage.setItem('applicantForm', JSON.stringify(updatedData));
 };
 
 const formSlice = createSlice({
@@ -32,12 +41,11 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     addForm: (state, action: PayloadAction<Partial<FormState>>) => {
-      return { ...state, ...action.payload };
+      saveToLocalStorage(action.payload as FormState);
     },
-    resetForm: () => initialState,
   },
 });
 
-export const { addForm, resetForm } = formSlice.actions;
+export const { addForm } = formSlice.actions;
 
 export default formSlice.reducer;

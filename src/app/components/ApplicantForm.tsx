@@ -13,7 +13,7 @@ import {
 } from 'antd';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
-import { addForm, resetForm } from '../store/slices/formSlice';
+import { addForm } from '../store/slices/formSlice';
 
 const ApplicantForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -22,11 +22,11 @@ const ApplicantForm: React.FC = () => {
 
   const onFinish = (values: any) => {
     dispatch(addForm(values));
+    form.resetFields();
   };
 
   const handleReset = () => {
     form.resetFields();
-    dispatch(resetForm());
   };
 
   return (
@@ -109,25 +109,25 @@ const ApplicantForm: React.FC = () => {
       </Row>
 
       {/* Citizen ID */}
-      <Form.Item label='CitizenId' required>
+      <Form.Item label='Citizen ID' required>
         <Space size='small'>
-          <Form.Item name='citizenId1' noStyle>
+          <Form.Item name={['citizenId', 0]} noStyle>
             <Input maxLength={1} style={{ width: 50 }} />
           </Form.Item>
           <span>-</span>
-          <Form.Item name='citizenId2' noStyle>
+          <Form.Item name={['citizenId', 1]} noStyle>
             <Input maxLength={4} style={{ width: 120 }} />
           </Form.Item>
           <span>-</span>
-          <Form.Item name='citizenId3' noStyle>
+          <Form.Item name={['citizenId', 2]} noStyle>
             <Input maxLength={5} style={{ width: 120 }} />
           </Form.Item>
           <span>-</span>
-          <Form.Item name='citizenId4' noStyle>
+          <Form.Item name={['citizenId', 3]} noStyle>
             <Input maxLength={2} style={{ width: 80 }} />
           </Form.Item>
           <span>-</span>
-          <Form.Item name='citizenId5' noStyle>
+          <Form.Item name={['citizenId', 4]} noStyle>
             <Input maxLength={1} style={{ width: 70 }} />
           </Form.Item>
         </Space>
@@ -138,7 +138,7 @@ const ApplicantForm: React.FC = () => {
         <Radio.Group>
           <Radio value='male'>Male</Radio>
           <Radio value='female'>Female</Radio>
-          <Radio value='unsex'>Unsex</Radio>
+          <Radio value='unsex'>Unisex</Radio>
         </Radio.Group>
       </Form.Item>
 
@@ -148,20 +148,44 @@ const ApplicantForm: React.FC = () => {
           <Form.Item
             name='mobilePhone'
             label='Mobile Phone'
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: 'Please input your phone number!' },
+              {
+                pattern: /^[0-9]{9}$/,
+                message: 'Phone number must be 9 digits!',
+              },
+            ]}
+            normalize={(value) => value.replace(/\D/g, '')}
           >
-            <Input addonBefore='+66' placeholder='0123456789' />
+            <Input
+              addonBefore='+66'
+              placeholder='919392839'
+              maxLength={9}
+              inputMode='tel'
+            />
           </Form.Item>
         </Col>
       </Row>
 
-      {/* Passport Number */}
+      {/* Passport No */}
       <Form.Item
         name='passportNo'
         label='Passport No'
-        rules={[{ required: true }]}
+        rules={[
+          { required: true, message: 'Please input your passport number!' },
+          {
+            pattern: /^[A-Z0-9]{7,9}$/,
+            message:
+              'Passport number must be 7-9 characters (Letters & Numbers)',
+          },
+        ]}
+        normalize={(value) => value?.toUpperCase().replace(/[^A-Z0-9]/g, '')}
       >
-        <InputNumber style={{ width: '400px' }} />
+        <Input
+          placeholder='A1234567'
+          style={{ width: '100%', maxWidth: '400px' }}
+          maxLength={9}
+        />
       </Form.Item>
 
       {/* Expected Salary */}
@@ -170,12 +194,7 @@ const ApplicantForm: React.FC = () => {
         label='Expected Salary'
         rules={[{ required: true }]}
       >
-        <InputNumber
-          style={{ width: '200px' }}
-          formatter={(value) =>
-            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-          }
-        />
+        <InputNumber type='number' style={{ width: '200px' }} />
       </Form.Item>
 
       <div style={{ textAlign: 'right' }}>
