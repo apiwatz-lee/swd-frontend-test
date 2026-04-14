@@ -13,7 +13,7 @@ interface FormState {
   gender: string;
   mobilePhone: string;
   passportNo: string;
-  salary: number;
+  salary: number | null;
 }
 
 export const applicantInitialValues: FormState = {
@@ -27,7 +27,7 @@ export const applicantInitialValues: FormState = {
   gender: 'male',
   mobilePhone: '',
   passportNo: '',
-  salary: 0,
+  salary: null,
 };
 
 const initialState = getDataFromLocalStorage(
