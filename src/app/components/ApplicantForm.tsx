@@ -235,7 +235,9 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
                     maxLength={9}
                     inputMode='tel'
                     onInput={(e) => {
-                      e.target.value = e.target.value.replace(/\D/g, '');
+                      (e.target as HTMLInputElement).value = (
+                        e.target as HTMLInputElement
+                      ).value.replace(/\D/g, '');
                     }}
                   />
                 </Form.Item>

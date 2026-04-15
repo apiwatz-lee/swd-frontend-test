@@ -12,15 +12,6 @@ import { FormState } from '../store/slices/formSlice';
 type TableRowSelection<T extends object = object> =
   TableProps<T>['rowSelection'];
 
-const onChange: TableProps<FormState>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
-
 const ApplicantTable: React.FC<{
   form: FormInstance;
   modal: React.FC<any>;
@@ -38,6 +29,7 @@ const ApplicantTable: React.FC<{
     {
       title: 'Name',
       dataIndex: 'firstname',
+      sorter: (a, b) => a.firstname.localeCompare(b.firstname),
       width: '20%',
     },
     {
@@ -49,7 +41,8 @@ const ApplicantTable: React.FC<{
     {
       title: 'Mobile phone',
       dataIndex: 'mobilePhone',
-      sorter: (a, b) => a.mobilePhone.localeCompare(b.mobilePhone),
+      sorter: (a, b) =>
+        a.mobilePhone.join(' ').localeCompare(b.mobilePhone.join(' ')),
       width: '20%',
     },
     {
@@ -181,7 +174,6 @@ const ApplicantTable: React.FC<{
           rowSelection={rowSelection}
           columns={columns}
           dataSource={formData}
-          onChange={onChange}
           style={{ width: '100%' }}
           pagination={{
             pageSize: 5,
