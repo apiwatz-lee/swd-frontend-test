@@ -37,7 +37,6 @@ const Home: React.FC = () => {
         {pages.map((item) => (
           <Link key={item?.key} href={item?.path}>
             <Card
-              hoverable
               style={{
                 width: 320,
                 borderRadius: 8,
