@@ -5,6 +5,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import LanguageSwitcher from './LanguageSwitcher';
 import { Provider } from 'react-redux';
 import { store } from '../store';
+import BackHome from './BackHome';
 
 const { Content } = Layout;
 
@@ -23,6 +24,7 @@ export default function MainLayout({
       <AntdRegistry>
         <Layout style={layoutStyle}>
           <LanguageSwitcher />
+          <BackHome />
           <Content>{children}</Content>
         </Layout>
       </AntdRegistry>

@@ -1,5 +1,6 @@
 {
   "homepage": {
+    "default": "Home",
     "test1": "Test 1",
     "test2": "Test 2",
     "layout": "Layout & Style",
