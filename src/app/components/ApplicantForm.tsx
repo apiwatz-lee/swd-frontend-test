@@ -6,8 +6,6 @@ import {
   DatePicker,
   Radio,
   Button,
-  Row,
-  Col,
   InputNumber,
   Space,
   Flex,
@@ -39,6 +37,14 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   const { t } = useTranslation();
   const key = useWatch('key', form);
 
+  const citizenIdFields = [
+    { name: 0, maxLength: 1, width: 50 },
+    { name: 1, maxLength: 4, width: 100 },
+    { name: 2, maxLength: 5, width: 110 },
+    { name: 3, maxLength: 2, width: 80 },
+    { name: 4, maxLength: 1, width: 50 },
+  ];
+
   const onAdd = (values: FormState) => {
     const formattedValues = {
       ...values,
@@ -47,7 +53,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
     };
     dispatch(addForm(formattedValues));
     setModalState({ ...modalState, isOpen: false });
-    // form.resetFields();
+    form.resetFields();
   };
 
   const onEdit = (values: FormState) => {
@@ -103,8 +109,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
       >
         <Form.Item name='key' hidden />
         <Flex wrap='wrap' gap={8}>
-          {/* Title */}
-
           <Form.Item
             name='title'
             label={t('form.title')}
@@ -120,8 +124,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
             />
           </Form.Item>
 
-          {/* Firstname */}
-
           <Form.Item
             name='firstname'
             label={t('form.firstname')}
@@ -129,8 +131,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           >
             <Input />
           </Form.Item>
-
-          {/* Lastname */}
 
           <Form.Item
             name='lastname'
@@ -142,7 +142,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         </Flex>
 
         <Flex wrap='wrap' gap={8}>
-          {/* Birthday */}
           <Form.Item
             name='birthday'
             label={t('form.birthday')}
@@ -153,8 +152,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
               style={{ width: '100%' }}
             />
           </Form.Item>
-
-          {/* Nationality */}
 
           <Form.Item
             name='nationality'
@@ -173,32 +170,38 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           </Form.Item>
         </Flex>
 
-        {/* Citizen ID */}
         <Form.Item label={t('form.citizen_id')}>
           <Space size='small' style={{ flexWrap: 'wrap' }}>
-            <Form.Item name={['citizenId', 0]} noStyle>
-              <Input maxLength={1} style={{ width: 50 }} />
-            </Form.Item>
-            <span>-</span>
-            <Form.Item name={['citizenId', 1]} noStyle>
-              <Input maxLength={4} style={{ width: 120 }} />
-            </Form.Item>
-            <span>-</span>
-            <Form.Item name={['citizenId', 2]} noStyle>
-              <Input maxLength={5} style={{ width: 120 }} />
-            </Form.Item>
-            <span>-</span>
-            <Form.Item name={['citizenId', 3]} noStyle>
-              <Input maxLength={2} style={{ width: 80 }} />
-            </Form.Item>
-            <span>-</span>
-            <Form.Item name={['citizenId', 4]} noStyle>
-              <Input maxLength={1} style={{ width: 70 }} />
-            </Form.Item>
+            {citizenIdFields.map((field, index) => (
+              <React.Fragment key={field.name}>
+                <Form.Item name={['citizenId', field.name]} noStyle>
+                  <Input
+                    maxLength={field.maxLength}
+                    style={{ width: field.width, textAlign: 'center' }}
+                    placeholder={'0'.repeat(field.maxLength)}
+                    onInput={(e) => {
+                      const target = e.target as HTMLInputElement;
+                      target.value = target.value.replace(/[^0-9]/g, '');
+                      if (
+                        target.value.length === field.maxLength &&
+                        index < citizenIdFields.length - 1
+                      ) {
+                        const nextField =
+                          target.parentElement?.nextElementSibling?.nextElementSibling?.querySelector(
+                            'input',
+                          );
+                        nextField?.focus();
+                      }
+                    }}
+                  />
+                </Form.Item>
+
+                {index < citizenIdFields.length - 1 && <span>-</span>}
+              </React.Fragment>
+            ))}
           </Space>
         </Form.Item>
 
-        {/* gender */}
         <Form.Item
           name='gender'
           label={t('form.gender')}
@@ -211,7 +214,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           </Radio.Group>
         </Form.Item>
 
-        {/* Mobile Phone */}
         <Flex>
           <Form.Item label={t('form.mobile_phone')} required>
             <Space.Compact
@@ -261,9 +263,8 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
                   maxLength={9}
                   inputMode='tel'
                   onInput={(e) => {
-                    (e.target as HTMLInputElement).value = (
-                      e.target as HTMLInputElement
-                    ).value.replace(/\D/g, '');
+                    const target = e.target as HTMLInputElement;
+                    target.value = target.value.replace(/\D/g, '');
                   }}
                 />
               </Form.Item>
@@ -271,7 +272,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           </Form.Item>
         </Flex>
 
-        {/* Passport No */}
         <Form.Item
           name='passportNo'
           label={t('form.passport_no')}
@@ -291,7 +291,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           />
         </Form.Item>
 
-        {/* Expected Salary */}
         <Form.Item
           name='salary'
           label={t('form.expected_salary')}
