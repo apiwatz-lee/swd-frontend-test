@@ -11,6 +11,41 @@
     "forward_prev": "Move shape"
   },
   "form": {
-    "title": "Form & Table"
+    "title": "Title",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "birthday": "Birthday",
+    "nationality": "Nationality",
+    "citizen_id": "Citizen ID",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "unisex": "Unisex",
+    "mobile_phone": "Mobile Phone",
+    "passport_no": "Passport No",
+    "expected_salary": "Expected Salary",
+    "name": "Name",
+    "manage": "Manage",
+    "mr": "Mr.",
+    "ms": "Ms.",
+    "date_format": "YYYY-MM-DD",
+    "required": {
+      "default": "required.",
+      "prefix_mobile_phone": "prefix is required.",
+      "mobile_phone": "Mobile phone is required."
+    }
+  },
+  "button": {
+    "submit": "Submit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "select_all": "Select All",
+    "reset": "Reset"
+  },
+  "nationality": {
+    "thailand": "Thailand",
+    "chinese": "Chinese",
+    "american": "American"
   }
 }

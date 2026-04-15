@@ -11,6 +11,41 @@
     "forward_prev": "เลื่อนรูปแบบ"
   },
   "form": {
-    "title": "การจัดการหน้าฟอร์ม"
+    "title": "คำนำหน้า",
+    "firstname": "ชื่อ",
+    "lastname": "นามสกุล",
+    "birthday": "วันเกิด",
+    "nationality": "สัญชาติ",
+    "citizen_id": "หมายเลขบัตรประชาชน",
+    "gender": "เพศ",
+    "male": "ชาย",
+    "female": "หญิง",
+    "unisex": "ไม่ระบุ",
+    "mobile_phone": "เบอร์โทรศัพท์มือถือ",
+    "passport_no": "หมายเลขหนังสือเดินทาง",
+    "expected_salary": "เงินเดือนที่คาดหวัง",
+    "name": "ชื่อ",
+    "manage": "จัดการ",
+    "mr": "นาย",
+    "ms": "นางสาว",
+    "date_format": "ปี-เดือน-วัน",
+    "required": {
+      "default": "จำเป็น",
+      "prefix_mobile_phone": "คำนำหน้ามือถือจำเป็น",
+      "mobile_phone": "เบอร์โทรศัพท์มือถือจำเป็น"
+    }
+  },
+  "button": {
+    "submit": "ส่ง",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "cancel": "ยกเลิก",
+    "select_all": "เลือกทั้งหมด",
+    "reset": "รีเซ็ต"
+  },
+  "nationality": {
+    "thailand": "ไทย",
+    "chinese": "จีน",
+    "american": "อเมริกัน"
   }
 }

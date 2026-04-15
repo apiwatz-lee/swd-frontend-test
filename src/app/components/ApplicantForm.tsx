@@ -20,6 +20,7 @@ import type { FormState } from '../store/slices/formSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { setDataToLocalStorage } from '../hooks/localStorage';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 const { useWatch } = Form;
 
@@ -27,13 +28,14 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   form,
   modal: ModalComponent,
 }) => {
-  const dispatch = useAppDispatch();
   const [modalState, setModalState] = useState({
     isOpen: false,
     title: '',
     description: '',
   });
+  const dispatch = useAppDispatch();
   const formData = useAppSelector((state: RootState) => state.applicantForm);
+  const { t, i18n } = useTranslation();
   const key = useWatch('key', form);
 
   const onAdd = (values: FormState) => {
@@ -102,11 +104,16 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         <Row gutter={16}>
           {/* Title */}
           <Col span={5}>
-            <Form.Item name='title' label='Title' rules={[{ required: true }]}>
+            <Form.Item
+              name='title'
+              label={t('form.title')}
+              rules={[{ required: true, message: t('form.required.default') }]}
+            >
               <Select
+                placeholder={t('form.title')}
                 options={[
-                  { value: 'Mr.', label: 'Mr.' },
-                  { value: 'Ms.', label: 'Ms.' },
+                  { value: 'Mr.', label: t('form.mr') },
+                  { value: 'Ms.', label: t('form.ms') },
                 ]}
               />
             </Form.Item>
@@ -115,8 +122,8 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           <Col span={8}>
             <Form.Item
               name='firstname'
-              label='Firstname'
-              rules={[{ required: true }]}
+              label={t('form.firstname')}
+              rules={[{ required: true, message: t('form.required.default') }]}
             >
               <Input />
             </Form.Item>
@@ -125,8 +132,8 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           <Col span={8}>
             <Form.Item
               name='lastname'
-              label='Lastname'
-              rules={[{ required: true }]}
+              label={t('form.lastname')}
+              rules={[{ required: true, message: t('form.required.default') }]}
             >
               <Input />
             </Form.Item>
@@ -138,10 +145,13 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           <Col span={8}>
             <Form.Item
               name='birthday'
-              label='Birthday'
-              rules={[{ required: true }]}
+              label={t('form.birthday')}
+              rules={[{ required: true, message: t('form.required.default') }]}
             >
-              <DatePicker style={{ width: '100%' }} />
+              <DatePicker
+                placeholder={t('form.date_format')}
+                style={{ width: '100%' }}
+              />
             </Form.Item>
           </Col>
 
@@ -149,15 +159,15 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
           <Col span={12}>
             <Form.Item
               name='nationality'
-              label='Nationality'
-              rules={[{ required: true }]}
+              label={t('form.nationality')}
+              rules={[{ required: true, message: t('form.required.default') }]}
             >
               <Select
-                placeholder='Please select'
+                placeholder={t('form.nationality')}
                 options={[
-                  { value: 'Thai', label: 'Thai' },
-                  { value: 'Chinese', label: 'Chinese' },
-                  { value: 'American', label: 'American' },
+                  { value: 'Thai', label: t('nationality.thailand') },
+                  { value: 'Chinese', label: t('nationality.chinese') },
+                  { value: 'American', label: t('nationality.american') },
                 ]}
               />
             </Form.Item>
@@ -165,7 +175,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         </Row>
 
         {/* Citizen ID */}
-        <Form.Item label='Citizen ID' required>
+        <Form.Item label='Citizen ID'>
           <Space size='small'>
             <Form.Item name={['citizenId', 0]} noStyle>
               <Input maxLength={1} style={{ width: 50 }} />
@@ -190,23 +200,40 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         </Form.Item>
 
         {/* gender */}
-        <Form.Item name='gender' label='Gender' rules={[{ required: true }]}>
+        <Form.Item
+          name='gender'
+          label={t('form.gender')}
+          rules={[{ required: true, message: t('form.required.default') }]}
+        >
           <Radio.Group>
-            <Radio value='male'>Male</Radio>
-            <Radio value='female'>Female</Radio>
-            <Radio value='unsex'>Unisex</Radio>
+            <Radio value='male'>{t('form.male')}</Radio>
+            <Radio value='female'>{t('form.female')}</Radio>
+            <Radio value='unisex'>{t('form.unisex')}</Radio>
           </Radio.Group>
         </Form.Item>
 
         {/* Mobile Phone */}
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item label='Mobile Phone' required>
-              <Space.Compact style={{ width: '100%' }}>
+            <Form.Item label={t('form.mobile_phone')} required>
+              <Space.Compact
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  gap: '12px',
+                  width: '100%',
+                }}
+              >
                 <Form.Item
                   name={['mobilePhone', 0]}
                   noStyle
-                  rules={[{ required: true, message: 'Code is required' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t('form.required.prefix_mobile_phone'),
+                    },
+                  ]}
                   initialValue='+66'
                 >
                   <Select
@@ -218,12 +245,15 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
                     ]}
                   />
                 </Form.Item>
-
+                <span>-</span>
                 <Form.Item
                   name={['mobilePhone', 1]}
                   noStyle
                   rules={[
-                    { required: true, message: 'Phone number is required' },
+                    {
+                      required: true,
+                      message: t('form.required.mobile_phone'),
+                    },
                     {
                       pattern: /^[0-9]{9}$/,
                       message: 'Phone number must be 9 digits!',
@@ -249,9 +279,8 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         {/* Passport No */}
         <Form.Item
           name='passportNo'
-          label='Passport No'
+          label={t('form.passport_no')}
           rules={[
-            { required: true, message: 'Please input your passport number!' },
             {
               pattern: /^[A-Z0-9]{7,9}$/,
               message:
@@ -270,15 +299,15 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         {/* Expected Salary */}
         <Form.Item
           name='salary'
-          label='Expected Salary'
-          rules={[{ required: true }]}
+          label={t('form.expected_salary')}
+          rules={[{ required: true, message: t('form.required.default') }]}
         >
           <InputNumber type='number' style={{ width: '200px' }} />
         </Form.Item>
 
         <div style={{ textAlign: 'right' }}>
           <Button onClick={handleReset} style={{ marginRight: 8 }}>
-            RESET
+            {t('button.reset')}
           </Button>
 
           {key ? (
@@ -292,11 +321,11 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
                 });
               }}
             >
-              Edit
+              {t('button.edit')}
             </Button>
           ) : (
             <Button type='primary' htmlType='submit'>
-              Submit
+              {t('button.submit')}
             </Button>
           )}
         </div>

@@ -9,10 +9,10 @@ export interface FormState {
   lastname: string;
   birthday: string;
   nationality: string;
-  citizenId: string[];
+  citizenId?: string[];
   gender: string;
   mobilePhone: string[];
-  passportNo: string;
+  passportNo?: string;
   salary: number | null;
 }
 

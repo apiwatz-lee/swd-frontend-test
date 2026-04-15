@@ -22,7 +22,7 @@ const FormPage: React.FC = () => {
 
   return (
     <div className='container'>
-      <h1 className='title'>{t('form.title')}</h1>
+      <h1 className='title'>{t('homepage.form')}</h1>
       <ApplicantForm
         form={form}
         modal={(props) => {

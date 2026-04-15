@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { RootState } from '../store';
 import { removeForm, removeMultipleForms } from '../store/slices/formSlice';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useTranslation } from 'react-i18next';
 
 import dayjs from 'dayjs';
 import { FormState } from '../store/slices/formSlice';
@@ -24,35 +25,35 @@ const ApplicantTable: React.FC<{
     title: '',
     description: '',
   });
-
+  const { t } = useTranslation();
   const columns: TableColumnsType<FormState> = [
     {
-      title: 'Name',
+      title: t('form.name'),
       dataIndex: 'firstname',
       sorter: (a, b) => a.firstname.localeCompare(b.firstname),
       width: '20%',
     },
     {
-      title: 'Gender',
+      title: t('form.gender'),
       dataIndex: 'gender',
       sorter: (a, b) => a.gender.localeCompare(b.gender),
       width: '20%',
     },
     {
-      title: 'Mobile phone',
+      title: t('form.mobile_phone'),
       dataIndex: 'mobilePhone',
       sorter: (a, b) =>
         a.mobilePhone.join(' ').localeCompare(b.mobilePhone.join(' ')),
       width: '20%',
     },
     {
-      title: 'Nationality',
+      title: t('form.nationality'),
       dataIndex: 'nationality',
       sorter: (a, b) => a.nationality.localeCompare(b.nationality),
       width: '20%',
     },
     {
-      title: 'Manage',
+      title: t('form.manage'),
       dataIndex: 'manage',
       width: '20%',
       render: (_, record) => {
@@ -67,7 +68,7 @@ const ApplicantTable: React.FC<{
               }}
               style={{ marginRight: 8 }}
             >
-              Edit
+              {t('button.edit')}
             </Button>
             <Button
               onClick={() => {
@@ -80,7 +81,7 @@ const ApplicantTable: React.FC<{
               }}
               danger
             >
-              Delete
+              {t('button.delete')}
             </Button>
           </div>
         );
@@ -153,7 +154,7 @@ const ApplicantTable: React.FC<{
               selectedRowKeys.length === formData.length && formData.length > 0
             }
           >
-            Select All
+            {t('button.select_all')}
           </Checkbox>
           <Button
             disabled={selectedRowKeys.length === 0}
@@ -166,7 +167,7 @@ const ApplicantTable: React.FC<{
             }
             danger
           >
-            Delete
+            {t('button.delete')}
           </Button>
         </div>
 
