@@ -165,9 +165,9 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
               <Select
                 placeholder={t('form.nationality')}
                 options={[
-                  { value: 'Thai', label: t('nationality.thailand') },
-                  { value: 'Chinese', label: t('nationality.chinese') },
-                  { value: 'American', label: t('nationality.american') },
+                  { value: 'thai', label: t('nationality.thai') },
+                  { value: 'chinese', label: t('nationality.chinese') },
+                  { value: 'american', label: t('nationality.american') },
                 ]}
               />
             </Form.Item>

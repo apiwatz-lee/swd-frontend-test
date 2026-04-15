@@ -38,6 +38,9 @@ const ApplicantTable: React.FC<{
       dataIndex: 'gender',
       sorter: (a, b) => a.gender.localeCompare(b.gender),
       width: '20%',
+      render: (_, record) => {
+        return <div>{t(`form.${record.gender}`)}</div>;
+      },
     },
     {
       title: t('form.mobile_phone'),
@@ -51,6 +54,9 @@ const ApplicantTable: React.FC<{
       dataIndex: 'nationality',
       sorter: (a, b) => a.nationality.localeCompare(b.nationality),
       width: '20%',
+      render: (_, record) => {
+        return <div>{t(`nationality.${record.nationality}`)}</div>;
+      },
     },
     {
       title: t('form.manage'),
