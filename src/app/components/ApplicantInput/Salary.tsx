@@ -10,7 +10,12 @@ const Salary: React.FC = () => {
       label={t('form.expected_salary')}
       rules={[{ required: true, message: t('form.required.default') }]}
     >
-      <InputNumber type='number' style={{ width: '200px' }} />
+      <InputNumber
+        type='number'
+        style={{ width: '200px' }}
+        min={1}
+        max={10000000}
+      />
     </Form.Item>
   );
 };

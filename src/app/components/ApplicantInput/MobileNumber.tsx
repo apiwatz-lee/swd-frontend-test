@@ -25,7 +25,7 @@ const MobileNumber: React.FC = () => {
           initialValue='+66'
         >
           <Select
-            style={{ width: '120px', height: '100%' }}
+            style={{ width: '140px', height: '100%' }}
             options={[
               { value: '+66', label: '🇹🇭 +66' },
               { value: '+86', label: '🇨🇳 +86' },
