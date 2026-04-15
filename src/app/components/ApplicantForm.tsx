@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
 import { addForm, updateForm } from '../store/slices/formSlice';
 import { applicantInitialValues } from '../store/slices/formSlice';
+import type { FormState } from '../store/slices/formSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { setDataToLocalStorage } from '../hooks/localStorage';
 import dayjs from 'dayjs';
@@ -35,7 +36,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   const formData = useAppSelector((state: RootState) => state.applicantForm);
   const key = useWatch('key', form);
 
-  const onAdd = (values: any) => {
+  const onAdd = (values: FormState) => {
     const formattedValues = {
       ...values,
       key: uuidv4(),
@@ -46,7 +47,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
     // form.resetFields();
   };
 
-  const onEdit = (values: any) => {
+  const onEdit = (values: FormState) => {
     const formattedValues = {
       ...values,
       birthday: dayjs(values.birthday).format('YYYY-MM-DD'),
@@ -200,24 +201,45 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         {/* Mobile Phone */}
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item
-              name='mobilePhone'
-              label='Mobile Phone'
-              rules={[
-                { required: true, message: 'Please input your phone number!' },
-                {
-                  pattern: /^[0-9]{9}$/,
-                  message: 'Phone number must be 9 digits!',
-                },
-              ]}
-              normalize={(value) => value.replace(/\D/g, '')}
-            >
-              <Input
-                addonBefore='+66'
-                placeholder='919392839'
-                maxLength={9}
-                inputMode='tel'
-              />
+            <Form.Item label='Mobile Phone' required>
+              <Space.Compact style={{ width: '100%' }}>
+                <Form.Item
+                  name={['mobilePhone', 0]}
+                  noStyle
+                  rules={[{ required: true, message: 'Code is required' }]}
+                  initialValue='+66'
+                >
+                  <Select
+                    style={{ width: '120px', height: '100%' }}
+                    options={[
+                      { value: '+66', label: '🇹🇭 +66' },
+                      { value: '+86', label: '🇨🇳 +86' },
+                      { value: '+1', label: '🇺🇸 +1' },
+                    ]}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  name={['mobilePhone', 1]}
+                  noStyle
+                  rules={[
+                    { required: true, message: 'Phone number is required' },
+                    {
+                      pattern: /^[0-9]{9}$/,
+                      message: 'Phone number must be 9 digits!',
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder='919392839'
+                    maxLength={9}
+                    inputMode='tel'
+                    onInput={(e) => {
+                      e.target.value = e.target.value.replace(/\D/g, '');
+                    }}
+                  />
+                </Form.Item>
+              </Space.Compact>
             </Form.Item>
           </Col>
         </Row>

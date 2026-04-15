@@ -11,7 +11,7 @@ export interface FormState {
   nationality: string;
   citizenId: string[];
   gender: string;
-  mobilePhone: string;
+  mobilePhone: string[];
   passportNo: string;
   salary: number | null;
 }
@@ -25,7 +25,7 @@ export const applicantInitialValues: FormState = {
   nationality: '',
   citizenId: ['', '', '', '', ''],
   gender: 'male',
-  mobilePhone: '',
+  mobilePhone: ['', ''],
   passportNo: '',
   salary: null,
 };
@@ -43,10 +43,7 @@ const formSlice = createSlice({
       state.push(action.payload as FormState);
     },
 
-    updateForm: (
-      state,
-      action: PayloadAction<{ key: React.Key; data: Partial<FormState> }>,
-    ) => {
+    updateForm: (state, action: PayloadAction<Partial<FormState>>) => {
       const { key, ...rest } = action.payload;
       const index = state.findIndex((form: FormState) => form.key === key);
       const isFound = index !== -1;
