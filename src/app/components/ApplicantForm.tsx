@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Form,
-  Input,
-  Select,
-  DatePicker,
-  Radio,
-  Button,
-  InputNumber,
-  Space,
-  Flex,
-} from 'antd';
+import { Form, Button, Flex } from 'antd';
 import type { FormInstance } from 'antd';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { RootState } from '../store';
@@ -20,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { setDataToLocalStorage } from '../hooks/localStorage';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import * as ApplicantInput from '../components/ApplicantInput';
 
 const { useWatch } = Form;
 
@@ -36,14 +27,6 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   const formData = useAppSelector((state: RootState) => state.applicantForm);
   const { t } = useTranslation();
   const key = useWatch('key', form);
-
-  const citizenIdFields = [
-    { name: 0, maxLength: 1, width: 50 },
-    { name: 1, maxLength: 4, width: 100 },
-    { name: 2, maxLength: 5, width: 110 },
-    { name: 3, maxLength: 2, width: 80 },
-    { name: 4, maxLength: 1, width: 50 },
-  ];
 
   const onAdd = (values: FormState) => {
     const formattedValues = {
@@ -109,195 +92,25 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
       >
         <Form.Item name='key' hidden />
         <Flex wrap='wrap' gap={8}>
-          <Form.Item
-            name='title'
-            label={t('form.title')}
-            rules={[{ required: true, message: t('form.required.default') }]}
-            style={{ minWidth: '180px' }}
-          >
-            <Select
-              placeholder={t('form.title')}
-              options={[
-                { value: 'Mr.', label: t('form.mr') },
-                { value: 'Ms.', label: t('form.ms') },
-              ]}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name='firstname'
-            label={t('form.firstname')}
-            rules={[{ required: true, message: t('form.required.default') }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name='lastname'
-            label={t('form.lastname')}
-            rules={[{ required: true, message: t('form.required.default') }]}
-          >
-            <Input />
-          </Form.Item>
+          <ApplicantInput.Title />
+          <ApplicantInput.Name name='firstname' label={t('form.firstname')} />
+          <ApplicantInput.Name name='lastname' label={t('form.lastname')} />
         </Flex>
 
         <Flex wrap='wrap' gap={8}>
-          <Form.Item
-            name='birthday'
-            label={t('form.birthday')}
-            rules={[{ required: true, message: t('form.required.default') }]}
-          >
-            <DatePicker
-              placeholder={t('form.date_format')}
-              style={{ width: '100%' }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name='nationality'
-            label={t('form.nationality')}
-            rules={[{ required: true, message: t('form.required.default') }]}
-            style={{ minWidth: '180px' }}
-          >
-            <Select
-              placeholder={t('form.nationality')}
-              options={[
-                { value: 'thai', label: t('nationality.thai') },
-                { value: 'chinese', label: t('nationality.chinese') },
-                { value: 'american', label: t('nationality.american') },
-              ]}
-            />
-          </Form.Item>
+          <ApplicantInput.Birthday />
+          <ApplicantInput.Nationality />
         </Flex>
 
-        <Form.Item label={t('form.citizen_id')}>
-          <Space size='small' style={{ flexWrap: 'wrap' }}>
-            {citizenIdFields.map((field, index) => (
-              <React.Fragment key={field.name}>
-                <Form.Item name={['citizenId', field.name]} noStyle>
-                  <Input
-                    maxLength={field.maxLength}
-                    style={{ width: field.width, textAlign: 'center' }}
-                    placeholder={'0'.repeat(field.maxLength)}
-                    onInput={(e) => {
-                      const target = e.target as HTMLInputElement;
-                      target.value = target.value.replace(/[^0-9]/g, '');
-                      if (
-                        target.value.length === field.maxLength &&
-                        index < citizenIdFields.length - 1
-                      ) {
-                        const nextField =
-                          target.parentElement?.nextElementSibling?.nextElementSibling?.querySelector(
-                            'input',
-                          );
-                        nextField?.focus();
-                      }
-                    }}
-                  />
-                </Form.Item>
-
-                {index < citizenIdFields.length - 1 && <span>-</span>}
-              </React.Fragment>
-            ))}
-          </Space>
-        </Form.Item>
-
-        <Form.Item
-          name='gender'
-          label={t('form.gender')}
-          rules={[{ required: true, message: t('form.required.default') }]}
-        >
-          <Radio.Group>
-            <Radio value='male'>{t('form.male')}</Radio>
-            <Radio value='female'>{t('form.female')}</Radio>
-            <Radio value='unisex'>{t('form.unisex')}</Radio>
-          </Radio.Group>
-        </Form.Item>
+        <ApplicantInput.CitizenId />
+        <ApplicantInput.Gender />
 
         <Flex>
-          <Form.Item label={t('form.mobile_phone')} required>
-            <Space.Compact
-              style={{
-                display: 'flex',
-                gap: '12px',
-                width: '100%',
-              }}
-            >
-              <Form.Item
-                name={['mobilePhone', 0]}
-                noStyle
-                rules={[
-                  {
-                    required: true,
-                    message: t('form.required.prefix_mobile_phone'),
-                  },
-                ]}
-                initialValue='+66'
-              >
-                <Select
-                  style={{ width: '120px', height: '100%' }}
-                  options={[
-                    { value: '+66', label: '🇹🇭 +66' },
-                    { value: '+86', label: '🇨🇳 +86' },
-                    { value: '+1', label: '🇺🇸 +1' },
-                  ]}
-                />
-              </Form.Item>
-              <span>-</span>
-              <Form.Item
-                name={['mobilePhone', 1]}
-                noStyle
-                rules={[
-                  {
-                    required: true,
-                    message: t('form.required.mobile_phone'),
-                  },
-                  {
-                    pattern: /^[0-9]{9}$/,
-                    message: 'Phone number must be 9 digits!',
-                  },
-                ]}
-              >
-                <Input
-                  placeholder='919392839'
-                  maxLength={9}
-                  inputMode='tel'
-                  onInput={(e) => {
-                    const target = e.target as HTMLInputElement;
-                    target.value = target.value.replace(/\D/g, '');
-                  }}
-                />
-              </Form.Item>
-            </Space.Compact>
-          </Form.Item>
+          <ApplicantInput.MobileNumber />
         </Flex>
 
-        <Form.Item
-          name='passportNo'
-          label={t('form.passport_no')}
-          rules={[
-            {
-              pattern: /^[A-Z0-9]{7,9}$/,
-              message:
-                'Passport number must be 7-9 characters (Letters & Numbers)',
-            },
-          ]}
-          normalize={(value) => value?.toUpperCase().replace(/[^A-Z0-9]/g, '')}
-        >
-          <Input
-            placeholder='A1234567'
-            style={{ width: '100%', maxWidth: '400px' }}
-            maxLength={9}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name='salary'
-          label={t('form.expected_salary')}
-          rules={[{ required: true, message: t('form.required.default') }]}
-        >
-          <InputNumber type='number' style={{ width: '200px' }} />
-        </Form.Item>
+        <ApplicantInput.PassportNo />
+        <ApplicantInput.Salary />
 
         <div style={{ textAlign: 'right' }}>
           <Button onClick={handleReset} style={{ marginRight: 8 }}>
