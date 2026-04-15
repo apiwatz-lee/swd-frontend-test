@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 const layoutStyle: React.CSSProperties = {
   background: 'linear-gradient(to right, #6eda78, #ffa200)',
-  height: '100vh',
+  minHeight: '100vh',
 };
 
 export default function MainLayout({
