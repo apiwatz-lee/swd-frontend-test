@@ -186,6 +186,7 @@ const ApplicantTable: React.FC<{
             pageSize: 5,
             position: ['topRight'],
           }}
+          scroll={{ x: 'max-content' }}
         />
       </Flex>
     </>
