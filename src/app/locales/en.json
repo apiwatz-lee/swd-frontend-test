@@ -33,7 +33,9 @@
     "required": {
       "default": "required.",
       "prefix_mobile_phone": "prefix is required.",
-      "mobile_phone": "Mobile phone is required."
+      "mobile_phone": "Mobile phone is required.",
+      "mobile_phone_pattern": "Phone number must be 9 digits!",
+      "passport_no_pattern": "Passport number must be 7-9 characters (letters and numbers)"
     }
   },
   "button": {

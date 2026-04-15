@@ -11,7 +11,7 @@ const PassportNo: React.FC = () => {
       rules={[
         {
           pattern: /^[A-Z0-9]{7,9}$/,
-          message: 'Passport number must be 7-9 characters (Letters & Numbers)',
+          message: t('form.required.passport_no_pattern'),
         },
       ]}
       normalize={(value) => value?.toUpperCase().replace(/[^A-Z0-9]/g, '')}

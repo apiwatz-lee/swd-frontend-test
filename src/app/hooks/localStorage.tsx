@@ -1,8 +1,8 @@
-export const getDataFromLocalStorage = (key: string, defaultValue: T): T => {
+export const getDataFromLocalStorage = (key: string, defaultValue: any) => {
   if (typeof window === 'undefined') return defaultValue;
   const data = localStorage.getItem(key);
   if (data) {
-    return JSON.parse(data) as T;
+    return JSON.parse(data);
   }
   return defaultValue;
 };

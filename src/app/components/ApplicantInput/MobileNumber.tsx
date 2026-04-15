@@ -44,7 +44,7 @@ const MobileNumber: React.FC = () => {
             },
             {
               pattern: /^[0-9]{9}$/,
-              message: 'Phone number must be 9 digits!',
+              message: t('form.required.mobile_phone_pattern'),
             },
           ]}
         >

@@ -12,8 +12,6 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import * as ApplicantInput from '../components/ApplicantInput';
 
-const { useWatch } = Form;
-
 const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   form,
   modal: ModalComponent,
@@ -26,6 +24,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state: RootState) => state.applicantForm);
   const { t } = useTranslation();
+  const { useWatch } = Form;
   const key = useWatch('key', form);
 
   const onAdd = (values: FormState) => {
