@@ -12,6 +12,7 @@
   align-items: center;
   gap: 12px;
   padding-top: 24px;
+  flex-wrap: wrap;
 }
 
 .move-shape {
@@ -32,6 +33,15 @@
     border: none;
     border-radius: none;
     border-radius: 0 8px 8px 0;
+  }
+
+  @media (max-width: 863px) {
+    flex-direction: column;
+
+    .card-up,
+    .card-down {
+      border-radius: 8px;
+    }
   }
 }
 
@@ -84,6 +94,14 @@
   justify-items: center;
   margin: 0 auto;
   gap: 24px;
+
+  @media (max-width: 1278px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 863px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .circle,

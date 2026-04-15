@@ -10,6 +10,7 @@ import {
   Col,
   InputNumber,
   Space,
+  Flex,
 } from 'antd';
 import type { FormInstance } from 'antd';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -35,7 +36,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
   });
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state: RootState) => state.applicantForm);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const key = useWatch('key', form);
 
   const onAdd = (values: FormState) => {
@@ -101,81 +102,79 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         }}
       >
         <Form.Item name='key' hidden />
-        <Row gutter={16}>
+        <Flex wrap='wrap' gap={8}>
           {/* Title */}
-          <Col span={5}>
-            <Form.Item
-              name='title'
-              label={t('form.title')}
-              rules={[{ required: true, message: t('form.required.default') }]}
-            >
-              <Select
-                placeholder={t('form.title')}
-                options={[
-                  { value: 'Mr.', label: t('form.mr') },
-                  { value: 'Ms.', label: t('form.ms') },
-                ]}
-              />
-            </Form.Item>
-          </Col>
-          {/* Firstname */}
-          <Col span={8}>
-            <Form.Item
-              name='firstname'
-              label={t('form.firstname')}
-              rules={[{ required: true, message: t('form.required.default') }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          {/* Lastname */}
-          <Col span={8}>
-            <Form.Item
-              name='lastname'
-              label={t('form.lastname')}
-              rules={[{ required: true, message: t('form.required.default') }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
 
-        <Row gutter={16}>
+          <Form.Item
+            name='title'
+            label={t('form.title')}
+            rules={[{ required: true, message: t('form.required.default') }]}
+            style={{ minWidth: '180px' }}
+          >
+            <Select
+              placeholder={t('form.title')}
+              options={[
+                { value: 'Mr.', label: t('form.mr') },
+                { value: 'Ms.', label: t('form.ms') },
+              ]}
+            />
+          </Form.Item>
+
+          {/* Firstname */}
+
+          <Form.Item
+            name='firstname'
+            label={t('form.firstname')}
+            rules={[{ required: true, message: t('form.required.default') }]}
+          >
+            <Input />
+          </Form.Item>
+
+          {/* Lastname */}
+
+          <Form.Item
+            name='lastname'
+            label={t('form.lastname')}
+            rules={[{ required: true, message: t('form.required.default') }]}
+          >
+            <Input />
+          </Form.Item>
+        </Flex>
+
+        <Flex wrap='wrap' gap={8}>
           {/* Birthday */}
-          <Col span={8}>
-            <Form.Item
-              name='birthday'
-              label={t('form.birthday')}
-              rules={[{ required: true, message: t('form.required.default') }]}
-            >
-              <DatePicker
-                placeholder={t('form.date_format')}
-                style={{ width: '100%' }}
-              />
-            </Form.Item>
-          </Col>
+          <Form.Item
+            name='birthday'
+            label={t('form.birthday')}
+            rules={[{ required: true, message: t('form.required.default') }]}
+          >
+            <DatePicker
+              placeholder={t('form.date_format')}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
 
           {/* Nationality */}
-          <Col span={12}>
-            <Form.Item
-              name='nationality'
-              label={t('form.nationality')}
-              rules={[{ required: true, message: t('form.required.default') }]}
-            >
-              <Select
-                placeholder={t('form.nationality')}
-                options={[
-                  { value: 'thai', label: t('nationality.thai') },
-                  { value: 'chinese', label: t('nationality.chinese') },
-                  { value: 'american', label: t('nationality.american') },
-                ]}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+
+          <Form.Item
+            name='nationality'
+            label={t('form.nationality')}
+            rules={[{ required: true, message: t('form.required.default') }]}
+            style={{ minWidth: '180px' }}
+          >
+            <Select
+              placeholder={t('form.nationality')}
+              options={[
+                { value: 'thai', label: t('nationality.thai') },
+                { value: 'chinese', label: t('nationality.chinese') },
+                { value: 'american', label: t('nationality.american') },
+              ]}
+            />
+          </Form.Item>
+        </Flex>
 
         {/* Citizen ID */}
-        <Form.Item label='Citizen ID'>
+        <Form.Item label={t('form.citizen_id')}>
           <Space size='small' style={{ flexWrap: 'wrap' }}>
             <Form.Item name={['citizenId', 0]} noStyle>
               <Input maxLength={1} style={{ width: 50 }} />
@@ -213,7 +212,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         </Form.Item>
 
         {/* Mobile Phone */}
-        <Row gutter={16}>
+        <Flex>
           <Form.Item label={t('form.mobile_phone')} required>
             <Space.Compact
               style={{
@@ -270,7 +269,7 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
               </Form.Item>
             </Space.Compact>
           </Form.Item>
-        </Row>
+        </Flex>
 
         {/* Passport No */}
         <Form.Item
