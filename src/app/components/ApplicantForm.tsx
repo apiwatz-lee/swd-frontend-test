@@ -87,8 +87,8 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
         layout='horizontal'
         onFinish={() =>
           setModalState({
-            title: 'Are you sure you want to submit the form?',
-            description: 'Please review your information before submitting.',
+            title: t('modal.submit.title'),
+            description: t('modal.submit.content'),
             isOpen: true,
           })
         }
@@ -315,8 +315,8 @@ const ApplicantForm: React.FC<{ form: FormInstance; modal: React.FC<any> }> = ({
               type='primary'
               onClick={() => {
                 setModalState({
-                  title: 'Are you sure you want to edit the form?',
-                  description: 'Please review your information before editing.',
+                  title: t('modal.edit.title'),
+                  description: t('modal.edit.content'),
                   isOpen: true,
                 });
               }}

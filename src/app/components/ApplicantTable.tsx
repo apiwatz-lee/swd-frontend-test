@@ -73,8 +73,8 @@ const ApplicantTable: React.FC<{
             <Button
               onClick={() => {
                 setModalState({
-                  title: 'Are you sure you want to delete the form?',
-                  description: 'This action cannot be undone.',
+                  title: t('modal.delete.title'),
+                  description: t('modal.delete.content'),
                   isOpen: true,
                 });
                 setSelectedRowKeys([record.key]);
@@ -160,8 +160,8 @@ const ApplicantTable: React.FC<{
             disabled={selectedRowKeys.length === 0}
             onClick={() =>
               setModalState({
-                title: 'Are you sure you want to delete the selected forms?',
-                description: 'This action cannot be undone.',
+                title: t('modal.delete.title'),
+                description: t('modal.delete.content'),
                 isOpen: true,
               })
             }

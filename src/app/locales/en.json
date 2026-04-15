@@ -47,5 +47,19 @@
     "thailand": "Thailand",
     "chinese": "Chinese",
     "american": "American"
+  },
+  "modal": {
+    "submit": {
+      "title": "Confirm submission",
+      "content": "Do you want to submit this data?"
+    },
+    "edit": {
+      "title": "Confirm edit",
+      "content": "Do you want to save changes?"
+    },
+    "delete": {
+      "title": "Confirm deletion",
+      "content": "Do you want to delete this data?"
+    }
   }
 }
